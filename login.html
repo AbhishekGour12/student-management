@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Authentication | EduManage Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">🎓</div>
+        <span>EduManage <span style="color: var(--secondary);">Pro</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <a href="index.html" class="btn btn-outline btn-sm">← Back to Home</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth Main Container -->
+  <main class="auth-wrapper">
+    <div class="auth-container">
+      
+      <!-- Tabs Header -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" data-tab="student-login">
+          👨‍🎓 Student Login
+        </button>
+        <button type="button" class="auth-tab-btn" data-tab="student-register">
+          📝 New Student Register
+        </button>
+        <button type="button" class="auth-tab-btn" data-tab="admin-login">
+          🛡️ Admin Login
+        </button>
+      </div>
+
+      <div class="auth-content">
+        
+        <!-- One-Click Demo Credentials Chip Bar -->
+        <div class="demo-badge-bar">
+          <div>
+            <strong style="color: var(--primary);">Quick Demo Testing:</strong>
+            <span style="color: var(--text-muted); margin-left: 4px;">Click to auto-fill</span>
+          </div>
+          <div style="display: flex; gap: 0.4rem;">
+            <button type="button" class="demo-chip" onclick="quickFillAdmin()">Admin</button>
+            <button type="button" class="demo-chip" style="background: var(--success);" onclick="quickFillStudent()">Student</button>
+          </div>
+        </div>
+
+        <!-- 1. STUDENT LOGIN FORM -->
+        <div id="studentLoginFormContainer">
+          <div class="auth-header">
+            <h2>Welcome Back, Student</h2>
+            <p>Enter your student email and password to access your dashboard</p>
+          </div>
+
+          <form id="studentLoginForm">
+            <div class="form-group">
+              <label class="form-label" for="studentEmail">Student Email Address</label>
+              <input 
+                type="email" 
+                id="studentEmail" 
+                class="form-control" 
+                placeholder="e.g. rahul@gmail.com" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <label class="form-label" for="studentPassword" style="margin-bottom: 0;">Password</label>
+                <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;" onclick="showToast('Default demo password: password123', 'info')">Demo Password?</span>
+              </div>
+              <input 
+                type="password" 
+                id="studentPassword" 
+                class="form-control" 
+                placeholder="Enter your password" 
+                required
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">
+              Sign In to Student Portal →
+            </button>
+          </form>
+
+          <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+            New student joining college? 
+            <button type="button" class="nav-link" style="color: var(--primary); font-weight: 700; border: none; background: transparent; cursor: pointer;" onclick="document.querySelector('[data-tab=\'student-register\']').click();">
+              Register here
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. STUDENT REGISTRATION FORM -->
+        <div id="studentRegisterFormContainer" style="display: none;">
+          <div class="auth-header">
+            <h2>Student Registration</h2>
+            <p>Enroll as a new student to create your academic profile</p>
+          </div>
+
+          <form id="studentRegisterForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="regName">Full Name *</label>
+                <input 
+                  type="text" 
+                  id="regName" 
+                  class="form-control" 
+                  placeholder="e.g. Tanmay Sen" 
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="regRollNo">Roll / Enrolment No. *</label>
+                <input 
+                  type="text" 
+                  id="regRollNo" 
+                  class="form-control" 
+                  placeholder="e.g. 23CS109" 
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="regEmail">Email Address *</label>
+                <input 
+                  type="email" 
+                  id="regEmail" 
+                  class="form-control" 
+                  placeholder="e.g. tanmay@gmail.com" 
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="regPhone">Phone Number *</label>
+                <input 
+                  type="tel" 
+                  id="regPhone" 
+                  class="form-control" 
+                  placeholder="+91 98765 00000" 
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="regCourse">Degree / Course *</label>
+                <select id="regCourse" class="form-control" required>
+                  <option value="B.Tech">B.Tech (Bachelor of Technology)</option>
+                  <option value="BCA">BCA (Bachelor of Computer Applications)</option>
+                  <option value="B.Com">B.Com (Bachelor of Commerce)</option>
+                  <option value="BBA">BBA (Bachelor of Business Admin)</option>
+                  <option value="B.Sc">B.Sc (Bachelor of Science)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="regSpecialization">Specialization / Stream *</label>
+                <select id="regSpecialization" class="form-control" required>
+                  <option value="Artificial Intelligence & ML">Artificial Intelligence & ML</option>
+                  <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                  <option value="Computer Science (Core)">Computer Science (Core)</option>
+                  <option value="Cyber Security & Forensics">Cyber Security & Forensics</option>
+                  <option value="Cloud Computing & DevOps">Cloud Computing & DevOps</option>
+                  <option value="Data Science & Analytics">Data Science & Analytics</option>
+                  <option value="Banking & Financial Markets">Banking & Financial Markets</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="regSemester">Current Semester *</label>
+                <select id="regSemester" class="form-control" required>
+                  <option value="Semester 1">Semester 1 (1st Year)</option>
+                  <option value="Semester 2" selected>Semester 2 (1st Year)</option>
+                  <option value="Semester 3">Semester 3 (2nd Year)</option>
+                  <option value="Semester 4">Semester 4 (2nd Year)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="regGender">Gender</label>
+                <select id="regGender" class="form-control">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="regPassword">Set Password (Min 6 Characters) *</label>
+              <input 
+                type="password" 
+                id="regPassword" 
+                class="form-control" 
+                placeholder="Create a strong password" 
+                minlength="6"
+                required
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">
+              Complete Registration & Enter Portal →
+            </button>
+          </form>
+
+          <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+            Already have an account? 
+            <button type="button" class="nav-link" style="color: var(--primary); font-weight: 700; border: none; background: transparent; cursor: pointer;" onclick="document.querySelector('[data-tab=\'student-login\']').click();">
+              Login here
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. ADMIN LOGIN FORM -->
+        <div id="adminLoginFormContainer" style="display: none;">
+          <div class="auth-header">
+            <h2>Faculty & Admin Portal</h2>
+            <p>Access master academic governance and student records</p>
+          </div>
+
+          <form id="adminLoginForm">
+            <div class="form-group">
+              <label class="form-label" for="adminEmail">Admin Registered Email</label>
+              <input 
+                type="email" 
+                id="adminEmail" 
+                class="form-control" 
+                placeholder="admin@gmail.com" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="adminPassword">Master Password</label>
+              <input 
+                type="password" 
+                id="adminPassword" 
+                class="form-control" 
+                placeholder="Enter admin password" 
+                required
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">
+              Authorize Admin Login →
+            </button>
+          </form>
+
+          <div style="background: var(--bg-input); padding: 0.85rem; border-radius: var(--radius-md); margin-top: 1.5rem; text-align: center; font-size: 0.8rem;">
+            <div style="color: var(--text-muted);">Pre-configured Credentials:</div>
+            <code style="font-weight: 800; color: var(--primary);">admin@gmail.com / admin123</code>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-text">
+        EduManage Pro &bull; Safe & Local Client Storage. No server installation needed.
+      </div>
+      <div>
+        <a href="index.html" class="nav-link">Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

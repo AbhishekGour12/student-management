@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal | EduManage Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">👨‍🎓</div>
+        <span>Student <span style="color: var(--secondary);">Portal</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <button class="btn btn-outline btn-sm" onclick="handleLogout()" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.3);">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="user-avatar student-display-avatar">R</div>
+        <div class="user-details">
+          <h4 class="student-display-name">Student Name</h4>
+          <p class="student-display-roll">Roll No</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="sidebar-nav-btn active" data-section="overview">
+          <span>🏠</span> Academic Overview
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="attendance">
+          <span>📅</span> Attendance Tracker
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="marks">
+          <span>📊</span> Marks & Grades
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="homework">
+          <span>📝</span> My Homework
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="timetable">
+          <span>⏰</span> Class Timetable
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="notices">
+          <span>🔔</span> College Notices
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm" style="width: 100%;" onclick="openModal('editProfileModal')">
+          ✏️ Edit My Profile
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-main">
+      
+      <!-- Profile Welcome Banner Card -->
+      <div class="profile-banner-card">
+        <div class="profile-main-info">
+          <div class="profile-avatar-large student-display-avatar">R</div>
+          <div class="profile-text">
+            <h2>Welcome, <span class="student-display-name">Student</span>!</h2>
+            <p>
+              <strong class="student-display-course">B.Tech • Artificial Intelligence</strong> • 
+              <span class="student-display-sem">Semester 2</span>
+            </p>
+            <div style="font-size: 0.8rem; margin-top: 0.35rem; opacity: 0.85;">
+              Roll: <span class="student-display-roll">23CS101</span> &bull; Status: <span class="badge badge-success" style="background: white; color: #15803d;">Enrolled</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-outline" style="background: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.4);" onclick="openModal('editProfileModal')">
+            Update Details
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= SECTION 1: ACADEMIC OVERVIEW ================= -->
+      <section id="studentOverviewSection">
+        
+        <!-- Summary Metric Cards -->
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="studentOverallAttendancePct">0%</h3>
+              <p>Overall Attendance</p>
+            </div>
+            <div class="metric-icon" style="background: var(--success-light); color: var(--success);">
+              📅
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="studentCgpaDisplay">0.0</h3>
+              <p>Current CGPA / 10</p>
+            </div>
+            <div class="metric-icon" style="background: var(--primary-light); color: var(--primary);">
+              🎓
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="studentAggregatePct">0%</h3>
+              <p>Aggregate Score</p>
+            </div>
+            <div class="metric-icon" style="background: var(--info-light); color: var(--info);">
+              📈
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="studentTotalSubjects">0</h3>
+              <p>Enrolled Subjects</p>
+            </div>
+            <div class="metric-icon" style="background: var(--warning-light); color: var(--warning);">
+              📚
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio & Contact Card -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Student Information & Bio</span>
+            <span class="badge badge-primary">Personal Details</span>
+          </div>
+          <div class="panel-card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+              <div>
+                <strong style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Contact Information</strong>
+                <p style="font-size: 0.9rem; margin-bottom: 0.35rem;">📧 Email: <strong class="student-display-email">student@gmail.com</strong></p>
+                <p style="font-size: 0.9rem;">📱 Phone: <strong class="student-display-phone">+91 00000 00000</strong></p>
+              </div>
+
+              <div>
+                <strong style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Hostel / Home Address</strong>
+                <p id="studentAddress" style="font-size: 0.9rem;">Hostel Block A, Campus</p>
+              </div>
+
+              <div>
+                <strong style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Student About & Bio</strong>
+                <p id="studentBio" style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                  Enrolled student passionate about computing and engineering.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Class Timetable Snapshot -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Today's Class Schedule (Sample)</span>
+            <span class="badge badge-success">Room 304 &bull; Block B</span>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Time Slot</th>
+                  <th>Course & Subject</th>
+                  <th>Faculty Instructor</th>
+                  <th>Mode / Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>09:00 AM - 10:15 AM</strong></td>
+                  <td>Data Structures & Algorithms (CS201)</td>
+                  <td>Dr. S. K. Gupta</td>
+                  <td><span class="badge badge-primary">Lecture Hall 101</span></td>
+                </tr>
+                <tr>
+                  <td><strong>10:30 AM - 11:45 AM</strong></td>
+                  <td>AI & Machine Learning Lab / IoT Hardware</td>
+                  <td>Prof. Anjali Sharma</td>
+                  <td><span class="badge badge-info">Computer Lab 3</span></td>
+                </tr>
+                <tr>
+                  <td><strong>12:00 PM - 01:15 PM</strong></td>
+                  <td>Discrete Mathematics (MA203)</td>
+                  <td>Prof. K. Venkatesh</td>
+                  <td><span class="badge badge-primary">Lecture Hall 202</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION 2: ATTENDANCE TRACKER ================= -->
+      <section id="studentAttendanceSection" style="display: none;">
+        
+        <!-- Attendance Gauge Card -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Cumulative Attendance Record</span>
+            <span id="attendanceStatusBadge" class="badge badge-success">✓ Eligible for Exams</span>
+          </div>
+          <div class="panel-card-body">
+            
+            <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+              <div id="studentAttendanceCircle" class="circle-progress" style="--percent: 85;">
+                <span id="studentOverallAttendancePct">85%</span>
+              </div>
+
+              <div>
+                <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.25rem;">Attendance Status Summary</h3>
+                <p id="studentAttendanceRatio" style="color: var(--text-muted); font-size: 0.95rem;">
+                  106 / 120 Total Lectures Attended
+                </p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; max-width: 500px;">
+                  College rules mandate a minimum of <strong>75% attendance</strong> per registered subject to appear in end-semester theory and laboratory examinations.
+                </p>
+              </div>
+            </div>
+
+            <!-- Subject Attendance Table -->
+            <h4 style="font-size: 1.1rem; font-weight: 800; margin: 1.5rem 0 0.75rem;">Subject-Wise Attendance Details</h4>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Attended</th>
+                    <th>Total Held</th>
+                    <th>Percentage (%)</th>
+                  </tr>
+                </thead>
+                <tbody id="studentAttendanceTableBody">
+                  <!-- Rendered by js/student.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 3: MARKS & REPORT CARD ================= -->
+      <section id="studentMarksSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Semester Report Card & Examination Grades</span>
+            <span class="badge badge-info">Grading Scale: A+ (90%), A (80%), B+ (70%)</span>
+          </div>
+          <div class="panel-card-body">
+            
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Subject Title</th>
+                    <th>Internal (/30)</th>
+                    <th>Mid-Term (/40)</th>
+                    <th>Final Exam (/50)</th>
+                    <th>Total (/120)</th>
+                    <th>Final Grade</th>
+                  </tr>
+                </thead>
+                <tbody id="studentMarksTableBody">
+                  <!-- Rendered by js/student.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <div style="margin-top: 2rem; background: var(--bg-input); padding: 1.25rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <strong>Official Academic Grade Sheet Verification:</strong>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Grades certified by Office of Controller of Examinations.</p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="window.print()">
+                🖨️ Print Marksheet
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 4: HOMEWORK & TASKS ================= -->
+      <section id="studentHomeworkSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Active Homework Assignments & Projects</span>
+            <span class="badge badge-primary">Course-specific Tasks</span>
+          </div>
+          <div class="panel-card-body">
+            <div id="studentHomeworkList">
+              <!-- Rendered by js/student.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 5: CLASS TIMETABLE ================= -->
+      <section id="studentTimetableSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Weekly Lecture & Practical Timetable</span>
+            <span class="badge badge-info">Semester 2 Schedule</span>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>09:00 - 10:15 AM</th>
+                  <th>10:30 - 11:45 AM</th>
+                  <th>12:00 - 01:15 PM</th>
+                  <th>02:00 - 04:00 PM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Monday</strong></td>
+                  <td>Data Structures</td>
+                  <td>AI & Python</td>
+                  <td>Discrete Math</td>
+                  <td><span class="badge badge-primary">DSA Coding Lab</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Tuesday</strong></td>
+                  <td>Digital Electronics</td>
+                  <td>Data Structures</td>
+                  <td>Discrete Math</td>
+                  <td><span class="badge badge-info">Hardware / IoT Lab</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Wednesday</strong></td>
+                  <td>AI & Python</td>
+                  <td>Digital Electronics</td>
+                  <td>Technical Writing</td>
+                  <td><span class="badge badge-success">Library Research</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Thursday</strong></td>
+                  <td>Discrete Math</td>
+                  <td>Data Structures</td>
+                  <td>AI & Python</td>
+                  <td><span class="badge badge-primary">AI Project Lab</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Friday</strong></td>
+                  <td>Digital Electronics</td>
+                  <td>AI & Python</td>
+                  <td>Seminar & Mentorship</td>
+                  <td><span class="badge badge-warning">Sports & Extra-Curricular</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 6: COLLEGE NOTICES ================= -->
+      <section id="studentNoticesSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Campus Bulletin Board</span>
+            <span class="badge badge-primary">Live Faculty Notices</span>
+          </div>
+          <div class="panel-card-body">
+            <div id="studentNoticesContainer">
+              <!-- Rendered by js/student.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Edit Personal Information</h3>
+        <button class="modal-close-btn" onclick="closeModal('editProfileModal')">✕</button>
+      </div>
+      <form id="studentEditProfileForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" id="editStudentPhoneInput" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Hostel / Residential Address</label>
+            <input type="text" id="editStudentAddressInput" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">About / Student Bio</label>
+            <textarea id="editStudentBioInput" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
+          </div>
+
+          <p style="font-size: 0.75rem; color: var(--text-muted);">
+            Note: Degree, Course, Specialization and Roll Number changes require direct approval from the Academic Registrar.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('editProfileModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>

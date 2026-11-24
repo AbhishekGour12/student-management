@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | EduManage Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">🛡️</div>
+        <span>EduManage <span style="color: var(--secondary);">Admin</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <button class="btn btn-outline btn-sm" onclick="handleLogout()" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.3);">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="user-avatar">ADM</div>
+        <div class="user-details">
+          <h4 class="admin-display-name">Prof. Vikram Malhotra</h4>
+          <p>Chief Academic Administrator</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="sidebar-nav-btn active" data-section="students">
+          <span>👥</span> Students Directory
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="attendance">
+          <span>📅</span> Attendance Manager
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="marks">
+          <span>📊</span> Marks & Grades
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="homework">
+          <span>📝</span> Homework & Tasks
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="notices">
+          <span>📢</span> College Notices
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-section="analytics">
+          <span>📈</span> Academic Insights
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm" style="width: 100%; color: #94a3b8; font-size: 0.75rem;" onclick="if(confirm('Reset all demo data to original state?')) { Storage.resetDemoData(); location.reload(); }">
+          ↺ Reset Demo Data
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="dashboard-main">
+      
+      <!-- Top Title Bar -->
+      <div class="dashboard-topbar">
+        <div class="page-title">
+          <h1>Faculty & Admin Workspace</h1>
+          <p>Manage enrolled students, academic grading, attendance records, and announcements</p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn btn-primary" onclick="openModal('addStudentModal')">
+            + Add New Student
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= SECTION 1: STUDENTS DIRECTORY ================= -->
+      <section id="studentsSection">
+        
+        <!-- Metrics Row -->
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="totalStudentsCount">0</h3>
+              <p>Total Enrolled</p>
+            </div>
+            <div class="metric-icon" style="background: var(--primary-light); color: var(--primary);">
+              👥
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="btechCount">0</h3>
+              <p>B.Tech Students</p>
+            </div>
+            <div class="metric-icon" style="background: var(--success-light); color: var(--success);">
+              ⚙️
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="bcaCount">0</h3>
+              <p>BCA Students</p>
+            </div>
+            <div class="metric-icon" style="background: var(--info-light); color: var(--info);">
+              💻
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="bcomCount">0</h3>
+              <p>B.Com Students</p>
+            </div>
+            <div class="metric-icon" style="background: var(--warning-light); color: var(--warning);">
+              📈
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Search & Multi-Filter Bar -->
+        <div class="filter-bar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="studentSearchInput" 
+              placeholder="Search by Student Name, Roll No, ID, or Phone..."
+            >
+          </div>
+
+          <!-- Course Filter -->
+          <select id="courseFilter" class="filter-select">
+            <option value="all">All Courses</option>
+            <option value="B.Tech">B.Tech</option>
+            <option value="BCA">BCA</option>
+            <option value="B.Com">B.Com</option>
+            <option value="BBA">BBA</option>
+            <option value="B.Sc">B.Sc</option>
+          </select>
+
+          <!-- Specialization Filter -->
+          <select id="specFilter" class="filter-select">
+            <option value="all">All Specializations</option>
+            <option value="AI">AI & ML</option>
+            <option value="IoT">IoT</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Cyber">Cyber Security</option>
+            <option value="Cloud">Cloud Computing</option>
+            <option value="Financial">Financial Markets</option>
+          </select>
+
+          <!-- Semester Filter -->
+          <select id="semFilter" class="filter-select">
+            <option value="all">All Semesters</option>
+            <option value="Semester 1">Semester 1</option>
+            <option value="Semester 2">Semester 2</option>
+            <option value="Semester 3">Semester 3</option>
+            <option value="Semester 4">Semester 4</option>
+          </select>
+
+          <button class="btn btn-outline btn-sm" onclick="document.getElementById('studentSearchInput').value=''; document.getElementById('courseFilter').value='all'; document.getElementById('specFilter').value='all'; document.getElementById('semFilter').value='all'; renderStudentsTable(); showToast('Filters reset', 'info');">
+            Clear Filters
+          </button>
+        </div>
+
+        <!-- Students Table Card -->
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Enrolled Students Roster</span>
+            <span class="badge badge-primary">Real-time LocalStorage</span>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Roll / Student ID</th>
+                  <th>Course & Branch</th>
+                  <th>Semester</th>
+                  <th>Phone No.</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody">
+                <!-- Dynamically Populated by js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION 2: ATTENDANCE MANAGER ================= -->
+      <section id="attendanceSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Subject-Wise Attendance Management</span>
+            <span class="badge badge-success">75% Mandatory Threshold</span>
+          </div>
+          <div class="panel-card-body">
+            
+            <div style="margin-bottom: 1.5rem;">
+              <label class="form-label">Select Student to Track Attendance</label>
+              <select id="attendanceStudentSelect" class="form-control" style="max-width: 500px;">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <div id="attendanceDetailsContainer">
+              <!-- Rendered by js/admin.js -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 3: MARKS & GRADES ================= -->
+      <section id="marksSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Academic Grading & Report Cards</span>
+            <span class="badge badge-info">10-Point CGPA Scale</span>
+          </div>
+          <div class="panel-card-body">
+            
+            <div style="margin-bottom: 1.5rem;">
+              <label class="form-label">Select Student for Marks Management</label>
+              <select id="marksStudentSelect" class="form-control" style="max-width: 500px;">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <div id="marksDetailsContainer">
+              <!-- Rendered by js/admin.js -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 4: HOMEWORK & TASKS ================= -->
+      <section id="homeworkSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Course Assignments & Homework</span>
+            <button class="btn btn-primary btn-sm" onclick="openModal('addHomeworkModal')">
+              + Post New Homework
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Assignment Title</th>
+                  <th>Target Course</th>
+                  <th>Due Date</th>
+                  <th>Default Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="homeworkTableBody">
+                <!-- Rendered by js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 5: NOTICES & ANNOUNCEMENTS ================= -->
+      <section id="noticesSection" style="display: none;">
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">College Notices & Student Bulletin</span>
+            <button class="btn btn-primary btn-sm" onclick="openModal('addNoticeModal')">
+              + Publish Announcement
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Notice Headline</th>
+                  <th>Category</th>
+                  <th>Publish Date</th>
+                  <th>Issued By</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="noticesTableBody">
+                <!-- Rendered by js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION 6: ANALYTICS & INSIGHTS ================= -->
+      <section id="analyticsSection" style="display: none;">
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="analyticsAvgAttendance">0%</h3>
+              <p>Campus Attendance Avg</p>
+            </div>
+            <div class="metric-icon" style="background: var(--success-light); color: var(--success);">
+              📊
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="analyticsEligibleStudents">0</h3>
+              <p>Exam Eligible (≥ 75%)</p>
+            </div>
+            <div class="metric-icon" style="background: var(--primary-light); color: var(--primary);">
+              ✓
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div class="metric-info">
+              <h3 id="analyticsDefaulters">0</h3>
+              <p>Defaulters (< 75%)</p>
+            </div>
+            <div class="metric-icon" style="background: var(--danger-light); color: var(--danger);">
+              ⚠
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-title">Branch Distribution Summary</span>
+          </div>
+          <div class="panel-card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+              <div style="background: var(--bg-input); padding: 1.25rem; border-radius: var(--radius-md);">
+                <strong>B.Tech Specializations:</strong>
+                <ul style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8;">
+                  <li>• Artificial Intelligence & Machine Learning (AI & ML)</li>
+                  <li>• Internet of Things (IoT) & Embedded Systems</li>
+                  <li>• Computer Science (Core) & Cyber Security</li>
+                </ul>
+              </div>
+
+              <div style="background: var(--bg-input); padding: 1.25rem; border-radius: var(--radius-md);">
+                <strong>BCA & B.Com Streams:</strong>
+                <ul style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8;">
+                  <li>• Cloud Computing & DevOps (BCA)</li>
+                  <li>• Banking, Financial Markets & FinTech (B.Com)</li>
+                  <li>• Digital Business Administration (BBA)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Add Student Modal -->
+  <div id="addStudentModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Enroll New Student</h3>
+        <button class="modal-close-btn" onclick="closeModal('addStudentModal')">✕</button>
+      </div>
+      <form id="addStudentForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="newStudentName" class="form-control" placeholder="e.g. Sameer Dixit" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Roll Number *</label>
+              <input type="text" id="newStudentRollNo" class="form-control" placeholder="e.g. 23CS110" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="newStudentEmail" class="form-control" placeholder="e.g. sameer@gmail.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" id="newStudentPhone" class="form-control" placeholder="+91 98000 00000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Course *</label>
+              <select id="newStudentCourse" class="form-control" required>
+                <option value="B.Tech">B.Tech</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Com">B.Com</option>
+                <option value="BBA">BBA</option>
+                <option value="B.Sc">B.Sc</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Specialization *</label>
+              <select id="newStudentSpecialization" class="form-control" required>
+                <option value="Artificial Intelligence & ML">Artificial Intelligence & ML</option>
+                <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                <option value="Computer Science (Core)">Computer Science (Core)</option>
+                <option value="Cyber Security & Forensics">Cyber Security & Forensics</option>
+                <option value="Cloud Computing & DevOps">Cloud Computing & DevOps</option>
+                <option value="Banking & Financial Markets">Banking & Financial Markets</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Semester *</label>
+              <select id="newStudentSemester" class="form-control" required>
+                <option value="Semester 1">Semester 1 (1st Year)</option>
+                <option value="Semester 2" selected>Semester 2 (1st Year)</option>
+                <option value="Semester 3">Semester 3 (2nd Year)</option>
+                <option value="Semester 4">Semester 4 (2nd Year)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gender</label>
+              <select id="newStudentGender" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Default Portal Password</label>
+            <input type="text" id="newStudentPassword" class="form-control" value="password123">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('addStudentModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Edit Student Modal -->
+  <div id="editStudentModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Update Student Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('editStudentModal')">✕</button>
+      </div>
+      <form id="editStudentForm">
+        <input type="hidden" id="editStudentId">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="editStudentName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Roll Number</label>
+              <input type="text" id="editStudentRollNo" class="form-control" disabled>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email (Read Only)</label>
+              <input type="email" id="editStudentEmail" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="editStudentPhone" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Course</label>
+              <select id="editStudentCourse" class="form-control" required>
+                <option value="B.Tech">B.Tech</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Com">B.Com</option>
+                <option value="BBA">BBA</option>
+                <option value="B.Sc">B.Sc</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Specialization</label>
+              <select id="editStudentSpecialization" class="form-control" required>
+                <option value="Artificial Intelligence & ML">Artificial Intelligence & ML</option>
+                <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                <option value="Computer Science (Core)">Computer Science (Core)</option>
+                <option value="Cyber Security & Forensics">Cyber Security & Forensics</option>
+                <option value="Cloud Computing & DevOps">Cloud Computing & DevOps</option>
+                <option value="Banking & Financial Markets">Banking & Financial Markets</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Semester</label>
+              <select id="editStudentSemester" class="form-control" required>
+                <option value="Semester 1">Semester 1</option>
+                <option value="Semester 2">Semester 2</option>
+                <option value="Semester 3">Semester 3</option>
+                <option value="Semester 4">Semester 4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Enrolment Status</label>
+              <select id="editStudentStatus" class="form-control">
+                <option value="Active">Active</option>
+                <option value="Suspended">Suspended</option>
+                <option value="Alumni">Alumni</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('editStudentModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Add Subject Marks Modal -->
+  <div id="addMarksModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Enter Subject Examination Marks</h3>
+        <button class="modal-close-btn" onclick="closeModal('addMarksModal')">✕</button>
+      </div>
+      <form id="addMarksForm">
+        <input type="hidden" id="marksModalStudentId">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Subject Code *</label>
+              <input type="text" id="markSubjectCode" class="form-control" placeholder="e.g. AI205" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject Name *</label>
+              <input type="text" id="markSubjectName" class="form-control" placeholder="e.g. Neural Networks" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Internal Assessment (Max 30) *</label>
+              <input type="number" id="markInternal" class="form-control" min="0" max="30" value="25" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mid-Term Exam (Max 40) *</label>
+              <input type="number" id="markMidterm" class="form-control" min="0" max="40" value="34" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Final Theory Exam (Max 50) *</label>
+            <input type="number" id="markFinal" class="form-control" min="0" max="50" value="42" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('addMarksModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Record Marks</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Add Homework Modal -->
+  <div id="addHomeworkModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Publish Course Homework</h3>
+        <button class="modal-close-btn" onclick="closeModal('addHomeworkModal')">✕</button>
+      </div>
+      <form id="addHomeworkForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Course Degree</label>
+              <select id="hwCourse" class="form-control">
+                <option value="B.Tech">B.Tech</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Com">B.Com</option>
+                <option value="BBA">BBA</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject Name *</label>
+              <input type="text" id="hwSubject" class="form-control" placeholder="e.g. Discrete Math" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Homework Title *</label>
+            <input type="text" id="hwTitle" class="form-control" placeholder="e.g. Graph Theory Proofs & Trees" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Submission Due Date *</label>
+            <input type="date" id="hwDueDate" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Assignment Instructions</label>
+            <textarea id="hwDescription" class="form-control" rows="3" placeholder="Provide problem numbers and guidelines..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('addHomeworkModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish to Students</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Add Notice Modal -->
+  <div id="addNoticeModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Broadcast Bulletin Notice</h3>
+        <button class="modal-close-btn" onclick="closeModal('addNoticeModal')">✕</button>
+      </div>
+      <form id="addNoticeForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Notice Headline *</label>
+            <input type="text" id="noticeTitle" class="form-control" placeholder="e.g. Annual Sports Meet 2026" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="noticeCategory" class="form-control">
+              <option value="Important">Important Alert</option>
+              <option value="Exam">Exam Schedule</option>
+              <option value="Event">Campus Event</option>
+              <option value="Holiday">Holiday Notice</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Notice Details *</label>
+            <textarea id="noticeContent" class="form-control" rows="4" placeholder="Full announcement text..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('addNoticeModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Broadcast</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

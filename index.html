@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduManage Pro | Smart Student Management Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">🎓</div>
+        <span>EduManage <span style="color: var(--secondary);">Pro</span></span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#stats" class="nav-link">Overview</a>
+        <a href="#portals" class="nav-link">Portals</a>
+        <a href="login.html#register" class="nav-link">Admissions</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Switcher Button -->
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <a href="login.html" class="btn btn-primary">Portal Login →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-pill">
+            <span>✨ 1st Year College Micro Project</span>
+            <span>•</span>
+            <span>Two-Panel Architecture</span>
+          </div>
+
+          <h1 class="hero-title">
+            Streamlined Academic & <span>Student Management</span> System
+          </h1>
+
+          <p class="hero-desc">
+            A comprehensive, lightweight web portal built with <strong>HTML5, CSS3 & Modern JavaScript</strong>. Powered by instant local persistence, featuring dedicated portals for both <strong>Admins & Students</strong>.
+          </p>
+
+          <div class="hero-cta">
+            <a href="login.html" class="btn btn-primary" style="font-size: 1rem; padding: 0.8rem 1.6rem;">
+              🚀 Open Login Portal
+            </a>
+            <a href="login.html#register" class="btn btn-outline" style="font-size: 1rem; padding: 0.8rem 1.6rem;">
+              📝 Student Registration
+            </a>
+          </div>
+
+          <!-- Quick Access Pill Chips -->
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <a href="login.html#admin" style="font-size: 0.8rem; font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 0.35rem 0.85rem; border-radius: var(--radius-full);">
+              🔑 Admin Access: admin@gmail.com
+            </a>
+            <a href="login.html" style="font-size: 0.8rem; font-weight: 700; color: var(--success); background: var(--success-light); padding: 0.35rem 0.85rem; border-radius: var(--radius-full);">
+              👨‍🎓 Student Access: rahul@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Preview Card -->
+        <div>
+          <div class="hero-preview-card">
+            <div class="hero-preview-badge">Live System</div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+              <div>
+                <h3 style="font-weight: 800; font-size: 1.25rem;">Academic Snapshot</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Real-time localStorage persistence</p>
+              </div>
+              <span class="badge badge-success">Online & Synced</span>
+            </div>
+
+            <!-- Mini Preview Metric Items -->
+            <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+              <div style="background: var(--bg-input); padding: 0.85rem 1rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="font-size: 1.2rem;">👥</span>
+                  <div>
+                    <strong style="font-size: 0.9rem; display: block;">B.Tech CSE, AI & IoT</strong>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">Specialized Branch Records</span>
+                  </div>
+                </div>
+                <span class="badge badge-primary">Active</span>
+              </div>
+
+              <div style="background: var(--bg-input); padding: 0.85rem 1rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="font-size: 1.2rem;">📊</span>
+                  <div>
+                    <strong style="font-size: 0.9rem; display: block;">Attendance & Marks Tracker</strong>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">75% Eligibility Thresholds</span>
+                  </div>
+                </div>
+                <span class="badge badge-success">88% Avg</span>
+              </div>
+
+              <div style="background: var(--bg-input); padding: 0.85rem 1rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <span style="font-size: 1.2rem;">📝</span>
+                  <div>
+                    <strong style="font-size: 0.9rem; display: block;">Homework & Notices</strong>
+                    <span style="font-size: 0.75rem; color: var(--text-muted);">Broadcast assignments & exams</span>
+                  </div>
+                </div>
+                <span class="badge badge-info">Interactive</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; pt-3; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+              <span style="color: var(--text-muted);">Demo Storage: Ready</span>
+              <button class="btn btn-outline btn-sm" onclick="Storage.resetDemoData(); showToast('Demo data reloaded!', 'success');">
+                ↺ Reload Sample Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div id="stats" class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Enrolled Students Capacity</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Specializations (AI, IoT, Cloud)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Pass Rate & High CGPA</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Zero-Server Client LocalStorage</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Modules / Features Section -->
+    <section id="features" class="features-section">
+      <div class="section-header">
+        <div class="section-subtitle">System Capabilities</div>
+        <h2 class="section-title">Everything Built For Academics</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem;">
+          Clean separation between administrative governance and student self-service portals.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: var(--primary-light); color: var(--primary);">
+            👥
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Student Directory & CRUD</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            Admins can add, view, update, and remove students with Course (B.Tech, BCA, B.Com), Specialization (AI, IoT, CSE), Roll Number, Phone, and Semester.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: var(--success-light); color: var(--success);">
+            🔍
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Instant Search & Filters</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            Search any student in real time by Name, Roll Number, Phone, or ID with multi-criteria dropdown filters for Branch and Semester.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: var(--warning-light); color: var(--warning);">
+            📅
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Attendance Tracker</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            Mark daily class presence or absence. Visual circular attendance rings calculate exam eligibility thresholds with a 75% shortage alert.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: var(--info-light); color: var(--info);">
+            📊
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Marks & Report Cards</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            Record Internal, Mid-Term, and Final Exam marks. Automatic total aggregate and letter grade computation (A+, A, B, C, F) with CGPA display.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: rgba(239, 68, 68, 0.15); color: var(--danger);">
+            📝
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Homework & Tasks</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            Teachers assign course-specific homework with due dates. Students can track pending tasks and mark them as submitted with 1 click.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: rgba(124, 58, 237, 0.15); color: #7c3aed;">
+            🔔
+          </div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem;">Notices & Toast Alerts</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;">
+            College-wide bulletin board for exam schedules, hackathons, and announcements, supplemented by responsive interactive toast popups.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two Portal Selection Cards -->
+    <section id="portals" style="padding: 3rem 1.5rem 5rem; max-width: 1100px; margin: 0 auto;">
+      <div class="section-header">
+        <div class="section-subtitle">Portal Access</div>
+        <h2 class="section-title">Select Your Gateway</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+        
+        <!-- Admin Card -->
+        <div class="panel-card" style="padding: 2rem; border-top: 4px solid var(--primary); text-align: center;">
+          <div style="width: 70px; height: 70px; margin: 0 auto 1.25rem; border-radius: var(--radius-full); background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+            🛡️
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Faculty & Admin Portal</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+            Full master control to manage students, record attendance, grade examinations, publish homework, and broadcast notices.
+          </p>
+          <div style="font-size: 0.8rem; background: var(--bg-input); padding: 0.6rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-family: monospace;">
+            admin@gmail.com • admin123
+          </div>
+          <a href="login.html#admin" class="btn btn-primary" style="width: 100%;">
+            Admin Login →
+          </a>
+        </div>
+
+        <!-- Student Card -->
+        <div class="panel-card" style="padding: 2rem; border-top: 4px solid var(--secondary); text-align: center;">
+          <div style="width: 70px; height: 70px; margin: 0 auto 1.25rem; border-radius: var(--radius-full); background: rgba(6, 182, 212, 0.15); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+            👨‍🎓
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;">Student Self-Service Portal</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+            View personal profile, real-time subject attendance %, academic report card, homework status, timetable, and college notices.
+          </p>
+          <div style="font-size: 0.8rem; background: var(--bg-input); padding: 0.6rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-family: monospace;">
+            rahul@gmail.com • password123
+          </div>
+          <a href="login.html" class="btn btn-secondary" style="width: 100%;">
+            Student Login / Register →
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-text">
+        <strong>EduManage Pro</strong> &copy; 2026. Designed for 1st Year Engineering & Computer Science Micro Project.
+      </div>
+      <div style="display: flex; gap: 1rem; font-size: 0.85rem;">
+        <a href="login.html" class="nav-link">Login</a>
+        <a href="login.html#register" class="nav-link">Register</a>
+        <a href="login.html#admin" class="nav-link">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
